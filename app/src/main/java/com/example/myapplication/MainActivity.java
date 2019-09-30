@@ -13,6 +13,8 @@ import com.estimote.coresdk.common.requirements.SystemRequirementsChecker;
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion;
 import com.estimote.coresdk.service.BeaconManager;
 import com.estimote.coresdk.recognition.packets.Beacon;
+import com.estimote.coresdk.*;
+
 
 import org.w3c.dom.Text;
 
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -69,10 +72,18 @@ public class MainActivity extends AppCompatActivity
                     textView.setText(str);
 
                     String str2 = "";
+                    double power = 0.0;
+                    double RSII = 0.0;
+                    double distance = 0.0;
 
                     for(int i = 0; i <list.size();i++)
                     {
-                        str2 = str2 + list.get(i).toString();
+                       // str2 = str2 + list.get(i).toString();
+                        power = list.get(i).getMeasuredPower();
+                        RSII = list.get(i).getRssi();
+                        distance = Math.pow(10, (power - RSII)/20);
+
+                        str2 = "Closest beacon is beacon " + i + " and is " + distance + " away.";
                     }
                     textView2.setText(str2);
                 }
