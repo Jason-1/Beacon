@@ -17,12 +17,19 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="331dp"
-        android:layout_height="213dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="472dp"
-        android:layout_marginBottom="47dp"
+        android:layout_width="334dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="334dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="452dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

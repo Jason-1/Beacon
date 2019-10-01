@@ -18,6 +18,7 @@ import com.estimote.coresdk.*;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView textView;
     TextView textView2;
+    TextView textView3;
     AlertDialog dialog;
     EditText editText;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         dialog.setView(editText);
 
         textView2 = (TextView) findViewById(R.id.textView2);
+        textView3 = (TextView) findViewById(R.id.textView3);
 
 
         beaconManager = new BeaconManager(this);
@@ -69,23 +72,67 @@ public class MainActivity extends AppCompatActivity
                     // TODO: update the UI here
                     Log.d("Forestry", "Nearest places: " + places);
                     String str = places.toString();
-                    textView.setText(str);
+                    //textView.setText(str);
+
+                    String str1 = "";
+                    double power1 = 0.0;
+                    double RSII1 = 0.0;
+                    double distance1 = 100.0;
+
 
                     String str2 = "";
-                    double power = 0.0;
-                    double RSII = 0.0;
-                    double distance = 0.0;
+                    double power2 = 0.0;
+                    double RSII2 = 0.0;
+                    double distance2 = 100.0;
 
                     for(int i = 0; i <list.size();i++)
                     {
-                       // str2 = str2 + list.get(i).toString();
-                        power = list.get(i).getMeasuredPower();
-                        RSII = list.get(i).getRssi();
-                        distance = Math.pow(10, (power - RSII)/20);
 
-                        str2 = "Closest beacon is beacon " + i + " and is " + distance + " away.";
+                        if(i == 0)
+                        {
+
+                            // str2 = str2 + list.get(i).toString();
+                            power1 = list.get(i).getMeasuredPower();
+                            RSII1 = list.get(i).getRssi();
+                            distance1 = Math.pow(10, (power1 - RSII1)/20);
+
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            String angleFormated1 = df.format(distance1);
+
+                            str1 = "Beacon " + (i + 1) + " is " + angleFormated1 + "m away.";
+
+                        }
+                        else
+                        {
+
+                            power2 = list.get(i).getMeasuredPower();
+                            RSII2 = list.get(i).getRssi();
+                            distance2 = Math.pow(10, (power2 - RSII2)/20);
+
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            String angleFormated2 = df.format(distance2);
+
+                            str2 = "Beacon " + (i + 1) + " is " + angleFormated2 + "m away.";
+
+                        }
+
                     }
-                    textView2.setText(str2);
+
+                    if (distance1 < 5 && distance2 < 5)
+                    {
+                        textView.setText("DANGER!!!");
+                    }
+                    else if (distance1 < 8 && distance2 < 5 || distance1 < 5 && distance2 < 8)
+                    {
+                        textView.setText("Warning");
+                    }
+                    else
+                    {
+                        textView.setText("Safe");
+                    }
+
+                    textView2.setText(str1);
+                    textView3.setText(str2);
                 }
                 else
                 {
@@ -127,8 +174,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-    // TODO: replace "<major>:<minor>" strings to match your own beacons.
     static
     {
         Map<String, List<String>> placesByBeacons = new HashMap<>();

@@ -90,37 +90,6 @@ public class Background_Monitoring extends Application
     }
 
 
-
-
-
-/*
-    @Override
-    protected void onPause()
-    {
-        beaconManager.stopRanging(region);
-
-        super.onPause();
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-        SystemRequirementsChecker.checkWithDefaultDialogs(this);
-
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-            @Override
-            public void onServiceReady() {
-                beaconManager.startRanging(region);
-            }
-        });
-    }
-
-*/
-
-
-
     private void createNotificationChannels()
     {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
@@ -140,16 +109,6 @@ public class Background_Monitoring extends Application
             manager.createNotificationChannel(channel2);
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public void showNotification(String title, String message)
